@@ -25,12 +25,14 @@ X_train, X_test = split_data(X)
 X_test, y_test = np.split(X_test, [number_of_attributes], axis=1)
 X_train, y_train = np.split(X_train, [number_of_attributes], axis=1)
 
-weight = np.random.random(len(X_train[0]))  # вектор весов
+weight = np.random.random(len(X_train[0]) + 1)  # вектор весов
 
-w0 = -1  # фиктивный признак
+w0 = -1
+X_train = np.insert(X_train, 4, w0, axis=1)
+X_test = np.insert(X_test, 4, w0, axis=1)
 
 sgd_ridge = SGD_Ridge(X_train=X_train, X_test=X_test, y_train=y_train,
-                      y_test=y_test, weight=weight, w0=w0)
+                      y_test=y_test, weight=weight)
 
 
 sgd_ridge.start()
