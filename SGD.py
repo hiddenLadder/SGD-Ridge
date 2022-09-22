@@ -27,9 +27,9 @@ class SGD_Ridge:
 
     def start(self):
         curr_Q = self.quality()  # первый функционал
-        eps = 0.00000001  # критерий остановки
+        eps = 0.000000001  # критерий остановки
         h = 1 / self.X_train_length  # шаг
-        t = 0.0001  # параметр регуляризации тау
+        t = 0.00001  # параметр регуляризации тау
         k = 0
         it = 0
 
@@ -37,7 +37,7 @@ class SGD_Ridge:
             it += 1
             i = np.random.choice(self.X_train.shape[0], 1, replace=False)[0]
             loss = self.loss(i)
-            self.weight = self.weight * (1 - h * t) - h * self.grad(i)
+            self.weight = (1 - (h * t)) * self.weight - h * self.grad(i)
             tmp_Q = loss * h + (1 - h) * curr_Q
             if abs(tmp_Q - curr_Q) < eps:
                 k += 1
